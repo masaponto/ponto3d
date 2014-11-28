@@ -1,88 +1,88 @@
 <html>
-  <meta charset="utf-8">
-  <title>3DPonto</title>
-  <body>
-	<script src="js/three.min.js"></script>
-	<script src="js/TrackballControls.js"></script>
-	<script>
+	<meta charset="utf-8">
+	<title>Ponto3D</title>
+	<body>
+		<script src="js/three.min.js"></script>
+		<script src="js/TrackballControls.js"></script>
+		<script>
 
-	 init();
-	 animate();
+		 init();
+		 animate();
 
-	 function init() {
-       scene = new THREE.Scene();
+		 function init() {
+			 scene = new THREE.Scene();
 
-	   //camera
-	   camera = new THREE.PerspectiveCamera( 75, 640/480, 1, 10000 );
-       camera.position.z = 150;
-	   camera.position.y = 30;
-       scene.add( camera );
+			 //camera
+			 camera = new THREE.PerspectiveCamera( 75, 640/480, 1, 10000 );
+			 camera.position.z = 150;
+			 camera.position.y = 30;
+			 scene.add( camera );
 
-       trackball = new THREE.TrackballControls( camera );
-
-
-	   //lite
-       var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-       directionalLight.position.set(0, 30, 100);
-	   scene.add( directionalLight );
+			 trackball = new THREE.TrackballControls( camera );
 
 
-	   var AmbientLight = new THREE.AmbientLight( 0xA9A9A9 );
-       scene.add( AmbientLight );
+			 //lite
+			 var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+			 directionalLight.position.set(0, 30, 100);
+			 scene.add( directionalLight );
 
 
-	   var SpotLight =  new THREE.SpotLight( 0xffffff );
-       SpotLight.position.set( -300, 500, 100 );
-       SpotLight.castShadow = true;
-	   SpotLight.shadowMapWidth =	2048;
-	   SpotLight.shadowMapHeight = 2048;
-	   scene.add( SpotLight );
+			 var AmbientLight = new THREE.AmbientLight( 0xA9A9A9 );
+			 scene.add( AmbientLight );
 
 
-       //object
-       loader = new THREE.JSONLoader();
-       loader.load( 'data/ponto3d-lite.json', function ( geometry, materials ) {
-         var faceMaterial = new THREE.MeshFaceMaterial( materials );
-         json = new THREE.Mesh( geometry, faceMaterial );
-         json.position.set( 0, 0, 0);
-         json.scale.set( 100, 100, 100 );
-		 json.castShadow = true;
-         //json.receiveShadow = true;
-		 scene.add( json );
-       } );
-
-       //grid
-       planeGeometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
-       planeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
-       planeMesh = new THREE.Mesh( planeGeometry, planeMaterial );
-       planeMesh.position.y = -10;
-       planeMesh.rotation.x = 90 * 2 * Math.PI / 360;
-	   scene.add( planeMesh );
-
-	   //plane
-	   planeGeometry2 = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
-       planeMaterial2 = new THREE.MeshBasicMaterial( { color: 0x363947 } );
-       planeMesh2 = new THREE.Mesh( planeGeometry2, planeMaterial2 );
-	   planeMesh2.position.y = -11;
-	   planeMesh2.rotation.x = -90 * 2 * Math.PI / 360;
-       planeMesh2.receiveShadow = true;
-       scene.add( planeMesh2 );
+			 var SpotLight =  new THREE.SpotLight( 0xffffff );
+			 SpotLight.position.set( -300, 500, 100 );
+			 SpotLight.castShadow = true;
+			 SpotLight.shadowMapWidth =	2048;
+			 SpotLight.shadowMapHeight = 2048;
+			 scene.add( SpotLight );
 
 
-	   //renderer
-       renderer = new THREE.WebGLRenderer({ antialias: true });
-	   renderer.setClearColor( new THREE.Color(0x0E7AC4) );
-	   renderer.setSize( window.innerWidth, window.innerHeight );
-	   renderer.shadowMapEnabled = true;
-	   document.body.appendChild( renderer.domElement );
+			 //object
+			 loader = new THREE.JSONLoader();
+			 loader.load( 'data/ponto3d-lite.json', function ( geometry, materials ) {
+				 var faceMaterial = new THREE.MeshFaceMaterial( materials );
+				 json = new THREE.Mesh( geometry, faceMaterial );
+				 json.position.set( 0, 0, 0);
+				 json.scale.set( 100, 100, 100 );
+				 json.castShadow = true;
+				 //json.receiveShadow = true;
+				 scene.add( json );
+			 } );
 
-	 }
+			 //grid
+			 planeGeometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+			 planeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
+			 planeMesh = new THREE.Mesh( planeGeometry, planeMaterial );
+			 planeMesh.position.y = -10;
+			 planeMesh.rotation.x = 90 * 2 * Math.PI / 360;
+			 scene.add( planeMesh );
 
-	 function animate() {
-       requestAnimationFrame( animate );
-       renderer.render( scene, camera );
-       trackball.update();
-	 }
-	</script>
-  </body>
+			 //plane
+			 planeGeometry2 = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+			 planeMaterial2 = new THREE.MeshBasicMaterial( { color: 0x363947 } );
+			 planeMesh2 = new THREE.Mesh( planeGeometry2, planeMaterial2 );
+			 planeMesh2.position.y = -11;
+			 planeMesh2.rotation.x = -90 * 2 * Math.PI / 360;
+			 planeMesh2.receiveShadow = true;
+			 scene.add( planeMesh2 );
+
+
+			 //renderer
+			 renderer = new THREE.WebGLRenderer({ antialias: true });
+			 renderer.setClearColor( new THREE.Color(0x0E7AC4) );
+			 renderer.setSize( window.innerWidth, window.innerHeight );
+			 renderer.shadowMapEnabled = true;
+			 document.body.appendChild( renderer.domElement );
+
+		 }
+
+		 function animate() {
+			 requestAnimationFrame( animate );
+			 renderer.render( scene, camera );
+			 trackball.update();
+		 }
+		</script>
+	</body>
 </html>
